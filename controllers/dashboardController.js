@@ -12,7 +12,13 @@ module.exports.dashboard = function(req, res){
             // name: user.name,
             dashboard: data
         });
-    })
+    }).catch(function(err){
+        return res.render('dashboard', {
+            title: "Dashboard",
+            // name: user.name,
+            dashboard: data
+        });
+    });
     })
     .catch(function(err){
         console.log('Error', err);

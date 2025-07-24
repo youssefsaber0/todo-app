@@ -9,8 +9,14 @@ module.exports.alltask = function(req, res){
         .then(function(user){
             console.log(`**********user`, user.name);
         return res.render('alltask', {
-            title: "Dashboard",
+            title: "alltask",
             name: user.name,
+            dashboard: data
+        });
+    }).catch(()=>{
+        return res.render('alltask', {
+            title: "alltask",
+            name: "Default",
             dashboard: data
         });
     })

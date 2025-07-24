@@ -9,8 +9,14 @@ module.exports.completedtask = function(req, res){
         .then(function(user){
             console.log(`**********user`, user.name);
         return res.render('completedtask', {
-            title: "Dashboard",
+            title: "completedtask",
             name: user.name,
+            dashboard: data
+        });
+    }).catch(function(err){
+        return res.render('completedtask', {
+            title: "completedtask",
+            name: "Default",
             dashboard: data
         });
     })
