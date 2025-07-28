@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app
+  namespace: todo-app
+  annotations:
+    # Argo CD Image Updater watches this image
+    argocd-image-updater.argoproj.io/image-list: todo-app=docker.io/youssefhassan122/todo-app
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/git-branch: main
+    argocd-image-updater.argoproj.io/todo-app.update-strategy: digest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-app
+  template:
+    metadata:
+      labels:
+        app: todo-app
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: todo-app
+          image: docker.io/youssefhassan122/todo-app@sha256:replace-me-later
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4000
+          env:
+            - name: MONGO_DB_URL
+              value: "mongodb://mongodb:27017/todolistDb"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 4000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 4000
+            initialDelaySeconds: 5
+            periodSeconds: 5
