@@ -23,7 +23,7 @@ spec:
         - name: regcred
       containers:
         - name: todo-app
-          image: docker.io/youssefhassan122/todo-app@sha256:replace-me-later
+          image: youssefhassan122/todo-app:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 4000
