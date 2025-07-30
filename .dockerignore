@@ -1,0 +1,21 @@
+# Ignore infrastructure/config files
+ansible/
+k8s/
+.github/
+
+# Node.js build artifacts
+node_modules
+dist
+npm-debug.log
+
+# Environment files (if any)
+.env
+.env.local
+
+# Git repo metadata
+.git
+.gitignore
+
+# Docker-related
+Dockerfile
+.dockerignore
