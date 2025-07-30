@@ -1,0 +1,40 @@
+---
+- name: Deploy Todo App to Kubernetes
+  hosts: remote
+  become: yes
+  vars:
+    namespace: todo-app
+    remote_k8s_dir: /root/k8s
+
+  tasks:
+    - name: Apply Namespace
+      shell: kubectl apply -f {{ remote_k8s_dir }}/namespace.yaml
+
+    - name: Deploy MongoDB PVC
+      shell: kubectl apply -f {{ remote_k8s_dir }}/mongodb-pvc.yaml -n {{ namespace }}
+
+    - name: Deploy MongoDB Deployment
+      shell: kubectl apply -f {{ remote_k8s_dir }}/mongodb-deployment.yaml -n {{ namespace }}
+
+    - name: Deploy MongoDB Service
+      shell: kubectl apply -f {{ remote_k8s_dir }}/mongodb-service.yaml -n {{ namespace }}
+
+    - name: Deploy Node.js App Deployment
+      shell: kubectl apply -f {{ remote_k8s_dir }}/todo-app-deployment.yaml -n {{ namespace }}
+
+    - name: Deploy Node.js App Service
+      shell: kubectl apply -f {{ remote_k8s_dir }}/todo-app-service.yaml -n {{ namespace }}
+
+    - name: Wait for pods to be ready
+      shell: |
+        kubectl wait --for=condition=Ready pod -l app=todo-app -n {{ namespace }} --timeout=60s || true
+        kubectl wait --for=condition=Ready pod -l app=mongodb -n {{ namespace }} --timeout=60s || true
+
+    - name: Get app NodePort
+      shell: |
+        kubectl get svc todo-app-service -n {{ namespace }} -o jsonpath='{.spec.ports[0].nodePort}'
+      register: nodeport_output
+
+    - name: Show URL to access app
+      debug:
+        msg: "🌐 Visit your app at http://{{ ansible_host }}:{{ nodeport_output.stdout }}"

@@ -1,0 +1,5 @@
+ansible-playbook -i inventory/hosts.ini playbooks/install-docker.yaml
+ansible-playbook -i inventory/hosts.ini playbooks/install-k8s.yaml
+ansible-playbook -i inventory/hosts.ini playbooks/init-cluster.yaml
+sudo microk8s enable dns storage ingress
+alias kubectl='microk8s kubectl'
