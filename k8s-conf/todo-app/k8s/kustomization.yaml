@@ -1,13 +1,15 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: todo-app
-
 resources:
+  - hpa.yaml
+  - mongodb-deployment.yaml
+  - mongodb-pvc.yaml
+  - mongodb-service.yaml
   - namespace.yaml
   - todo-app-deployment.yaml
   - todo-app-service.yaml
-  - mongodb-deployment.yaml
-  - mongodb-service.yaml
-  - mongodb-pvc.yaml
-  - hpa.yaml
+
+images:
+  - name: docker.io/youssefhassan122/todo-app
+    newTag: latest  

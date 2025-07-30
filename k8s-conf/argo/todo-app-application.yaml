@@ -3,6 +3,10 @@ kind: Application
 metadata:
   name: todo-app
   namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: todo-app=docker.io/youssefhassan122/todo-app
+    argocd-image-updater.argoproj.io/todo-app.update-strategy: digest
+    argocd-image-updater.argoproj.io/write-back-method: kustomize
 spec:
   project: default
   source:
