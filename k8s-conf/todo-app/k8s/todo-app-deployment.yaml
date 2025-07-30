@@ -8,7 +8,7 @@ metadata:
     argocd-image-updater.argoproj.io/image-list: todo-app=docker.io/youssefhassan122/todo-app
     argocd-image-updater.argoproj.io/write-back-method: git
     argocd-image-updater.argoproj.io/git-branch: main
-    argocd-image-updater.argoproj.io/todo-app.update-strategy: digest
+    argocd-image-updater.argoproj.io/image-tag-update-strategy: digest
 spec:
   replicas: 1
   selector:
