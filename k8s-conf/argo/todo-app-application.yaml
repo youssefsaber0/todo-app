@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/youssefsaber0/todo-app.git
     targetRevision: main
-    path: k8s-conf/todo-app/k8s # 👈 points to the folder with kustomization.yaml
+    path: k8s-conf/todo-app/k8s
   destination:
     server: https://kubernetes.default.svc
     namespace: todo-app
