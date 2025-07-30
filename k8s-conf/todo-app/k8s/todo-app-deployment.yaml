@@ -3,13 +3,8 @@ kind: Deployment
 metadata:
   name: todo-app
   namespace: todo-app
-  annotations:
-    # Argo CD Image Updater config
-    argocd-image-updater.argoproj.io/image-list: todo-app=docker.io/youssefhassan122/todo-app
-    argocd-image-updater.argoproj.io/todo-app.update-strategy: digest
-    argocd-image-updater.argoproj.io/todo-app.allow-tags: regexp:^latest$
-    argocd-image-updater.argoproj.io/write-back-method: git
-    argocd-image-updater.argoproj.io/git-branch: main
+  labels:
+    app: todo-app
 spec:
   replicas: 1
   selector:
@@ -24,7 +19,7 @@ spec:
         - name: regcred
       containers:
         - name: todo-app
-          image: docker.io/youssefhassan122/todo-app:latest # This will be replaced with digest
+          image: docker.io/youssefhassan122/todo-app:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 4000
