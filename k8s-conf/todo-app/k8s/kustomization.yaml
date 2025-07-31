@@ -13,4 +13,4 @@ resources:
 images:
 - name: docker.io/youssefhassan122/todo-app
   newName: docker.io/youssefhassan122/todo-app
-  newTag: 056057a
+  newTag: 3d078fe
