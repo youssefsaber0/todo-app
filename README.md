@@ -1,6 +1,6 @@
 # Todo App – DevOps Project
 
-> A simple Node.js + MongoDB application to demonstrate complete DevOps automation using **GitHub Actions**, **Docker**, **Ansible**, and **Argo CD**.
+> A simple Node.js + MongoDB application to demonstrate complete DevOps automation using **GitHub Actions**, **Docker**, **Ansible**, and **Argo CD**..
 
 ---
 
